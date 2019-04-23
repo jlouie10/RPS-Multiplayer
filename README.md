@@ -6,6 +6,7 @@ An online multiplayer Rock Paper Scissors game.
 # Screenshots
 
 # What's New
+* Local game play
 
 # Instructions
 
