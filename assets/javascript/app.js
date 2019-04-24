@@ -92,11 +92,14 @@ $(document).ready(function () {
             player2.wins++;
         }
 
+        losses = calculateLosses();
+
+        updateDisplay(losses);
+
         player1.gesture = "";
         player2.gesture = "";
 
         updateApp();
-        calculateLosses();
     }
 
     /**
@@ -114,7 +117,7 @@ $(document).ready(function () {
     }
 
     /**
-     * function calculateLosses
+     * function calculateLosses()
      * Calculate losses for each player
      */
 
@@ -122,10 +125,25 @@ $(document).ready(function () {
          var lossesP1 = total - ties - player1.wins;
          var lossesP2 = total - ties - player2.wins;
 
-         console.log("Player 1: " + player1.wins + "-" + ties + "-" + lossesP1);
-         console.log("Player 2: " + player2.wins + "-" + ties + "-" + lossesP2);
-
+         return [lossesP1, lossesP2];
      }
+
+
+     /**
+     * function displayGestures()
+     * Updates the display for each player
+     */
+
+    function updateDisplay(lossesArray) {
+        var summaryP1 = "Player 1: " + player1.wins + "-" + lossesArray[0] + "-" + ties;
+        var summaryP2 = "Player 2: " + player2.wins + "-" + lossesArray[1] + "-" + ties;
+
+        $("#summary").text(summaryP1)
+            .append(summaryP2);
+        
+        $("#player-1-gesture").text(player1.gesture);
+        $("#player-2-gesture").text(player2.gesture);
+    }
 
 
     /**
