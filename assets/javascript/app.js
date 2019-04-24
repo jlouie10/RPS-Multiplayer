@@ -1,22 +1,37 @@
 $(document).ready(function () {
+
+    /**
+     * Initialize Firebase
+     */
+
+    var config = {
+        apiKey: "AIzaSyDdNeulUrEPxPIcg8Lf1l-fob7Ua1Ewkr4",
+        authDomain: "rps-multiplayer-7d9b0.firebaseapp.com",
+        databaseURL: "https://rps-multiplayer-7d9b0.firebaseio.com",
+        projectId: "rps-multiplayer-7d9b0",
+        storageBucket: "rps-multiplayer-7d9b0.appspot.com",
+        messagingSenderId: "467435142902"
+    };
+
+    firebase.initializeApp(config);
+
+    var database = firebase.database();
+
+
     /**
      * Variables
      */
 
-    var game = {
-        total: 0,
-        player1: {
-            wins: 0,
-            gesture: "",
-            history: []
-        },
-        player2: {
-            wins: 0,
-            gesture: "",
-            history: []
-        },
-        ties: 0
+    var total = 0;
+    var player1 = {
+        wins: 0,
+        gesture: ""
     }
+    var player2 = {
+        wins: 0,
+        gesture: ""
+    }
+    var ties = 0;
 
 
     /**
@@ -25,51 +40,88 @@ $(document).ready(function () {
 
 
     /**
-     * Function
+     * function getGesture()
+     * Get player gesture when button is clicked
      */
 
-    // Get player action when button is clicked
     function getGesture() {
-        var gesture = $(this).val();
         var playerNumber = $(this).attr("data-player");
+        var playerGesture = $(this).val();
 
-        game["player" + playerNumber].gesture = gesture;
-
-        // Compare when both players have selected an action
-        if ((game.player1.gesture !== "") &&
-            (game.player2.gesture !== "")) {
-            throwGesture()
-        }
-
-        console.log(game);
-    }
-
-    function throwGesture() {
-        game.total++;
-
-        if ((game.player1.gesture === "rock" && game.player2.gesture === "scissors") ||
-            (game.player1.gesture === "scissors" && game.player2.gesture === "paper") ||
-            (game.player1.gesture === "paper" && game.player2.gesture === "rock")) {
-
-            game.player1.wins++;
-
-        }
-        else if ((game.player1.gesture === "rock" && game.player2.gesture === "paper") ||
-            (game.player1.gesture === "scissors" && game.player2.gesture === "rock") ||
-            (game.player1.gesture === "paper" && game.player2.gesture === "scissors")) {
-
-            game.player2.wins++;
-
+        if (playerNumber === "1") {
+            updateGesture(player1, playerNumber, playerGesture);
         }
         else {
-            game.ties++;
+            updateGesture(player2, playerNumber, playerGesture);
         }
 
-        game.player1.history.push(game.player1.gesture);
-        game.player2.history.push(game.player2.gesture);
+        // Compare when both players have selected an action
+        if ((player1.gesture !== "") &&
+            (player2.gesture !== "")) {
+            throwGesture()
+        }
+    }
 
-        game.player1.gesture = "";
-        game.player2.gesture = "";
+
+    function updateGesture(player, number, gesture) {
+        player.gesture = gesture;
+
+        database.ref("app/player" + number + "/").set(player);
+    }
+
+
+    /**
+     * function throwGesture()
+     * Determines RPS winner
+     */
+
+    function throwGesture() {
+        total++;
+
+        if ((player1.gesture === "rock" && player2.gesture === "scissors") ||
+            (player1.gesture === "scissors" && player2.gesture === "paper") ||
+            (player1.gesture === "paper" && player2.gesture === "rock")) {
+
+            player1.wins++;
+
+        }
+        else if (player1.gesture === player2.gesture) {
+            ties++;
+        }
+        else {
+            player2.wins++;
+        }
+
+        player1.gesture = "";
+        player2.gesture = "";
+
+        database.ref("app/").set({
+            total: total,
+            player1: player1,
+            player2: player2,
+            ties: ties
+        });
+    }
+
+
+    /**
+     * fundction reset()
+     * Initializes database
+     */
+
+    function reset() {
+        database.ref("app/").set({
+            total: 0,
+            player1: {
+                wins: 0,
+                gesture: ""
+            },
+            player2: {
+                wins: 0,
+                gesture: ""
+            },
+            ties: 0
+        });
     }
 
 
@@ -77,6 +129,16 @@ $(document).ready(function () {
      * Events
      */
 
-    $(document).on("click", "button", getGesture);
+    $(document).on("click", ".gesture", getGesture);
+    $(document).on("click", "#reset", reset);
 
+    database.ref().on("value", function (data) {
+        var app = data.val().app;
+        
+        total = app.total;
+        player1 = app.player1;
+        player2 = app.player2;
+        ties = app.ties;
+    });
 });
+

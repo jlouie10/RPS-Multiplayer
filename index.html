@@ -24,19 +24,27 @@
                 <h2>Player 1</h2>
                 <div id="player-1-action"></div>
                 <div id="player-1-buttons">
-                    <button id="player-1-rock" class="btn btn-primary" value="rock" data-player="1">Rock</button>
-                    <button id="player-1-paper" class="btn btn-primary" value="paper" data-player="1">Paper</button>
-                    <button id="player-1-scissors" class="btn btn-primary" value="scissors" data-player="1">Scissors</button>
+                    <button id="player-1-rock" class="btn btn-primary gesture" value="rock" data-player="1">Rock</button>
+                    <button id="player-1-paper" class="btn btn-primary gesture" value="paper" data-player="1">Paper</button>
+                    <button id="player-1-scissors" class="btn btn-primary gesture" value="scissors" data-player="1">Scissors</button>
                 </div>
             </div>
             <div class="col-6">
                 <h2>Player 2</h2>
                 <div id="player-2-action"></div>
                 <div id="player-2-buttons">
-                    <button id="player-2-rock" class="btn btn-primary" value="rock" data-player="2">Rock</button>
-                    <button id="player-2-paper" class="btn btn-primary" value="paper" data-player="2">Paper</button>
-                    <button id="player-2-scissors" class="btn btn-primary" value="scissors" data-player="2">Scissors</button>
+                    <button id="player-2-rock" class="btn btn-primary gesture" value="rock" data-player="2">Rock</button>
+                    <button id="player-2-paper" class="btn btn-primary gesture" value="paper" data-player="2">Paper</button>
+                    <button id="player-2-scissors" class="btn btn-primary gesture" value="scissors" data-player="2">Scissors</button>
                 </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <button id="reset" class="btn btn-primary" value="reset">Reset</button>
             </div>
         </div>
     </div>
@@ -51,6 +59,9 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
         crossorigin="anonymous"></script>
+
+    <!-- Firebase Reference -->
+    <script src="https://www.gstatic.com/firebasejs/5.10.0/firebase.js"></script>
 
     <!-- App Javascript -->
     <script src="assets/javascript/app.js"></script>
