@@ -72,7 +72,7 @@ $(document).ready(function () {
 
     /**
      * function throwGesture()
-     * Determines RPS winner
+     * Determine RPS winner
      */
 
     function throwGesture() {
@@ -95,6 +95,16 @@ $(document).ready(function () {
         player1.gesture = "";
         player2.gesture = "";
 
+        updateApp();
+        calculateLosses();
+    }
+
+    /**
+     * function updateApp()
+     * Update Firebase
+     */
+
+    function updateApp() {
         database.ref("app/").set({
             total: total,
             player1: player1,
@@ -102,6 +112,20 @@ $(document).ready(function () {
             ties: ties
         });
     }
+
+    /**
+     * function calculateLosses
+     * Calculate losses for each player
+     */
+
+     function calculateLosses() {
+         var lossesP1 = total - ties - player1.wins;
+         var lossesP2 = total - ties - player2.wins;
+
+         console.log("Player 1: " + player1.wins + "-" + ties + "-" + lossesP1);
+         console.log("Player 2: " + player2.wins + "-" + ties + "-" + lossesP2);
+
+     }
 
 
     /**
