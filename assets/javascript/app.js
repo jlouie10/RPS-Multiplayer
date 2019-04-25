@@ -33,6 +33,18 @@ $(document).ready(function () {
         gesture: ""
     }
     var ties = 0;
+    var gestureImages = {
+        player1: {
+            rock: "assets/images/rock_formatted_1.png",
+            paper: "assets/images/paper_formatted_1.png",
+            scissors: "assets/images/scissors_formatted_1.png"
+        },
+        player2: {
+            rock: "assets/images/rock_formatted_2.png",
+            paper: "assets/images/paper_formatted_2.png",
+            scissors: "assets/images/scissors_formatted_2.png"
+        },
+    }
 
 
     /**
@@ -48,9 +60,6 @@ $(document).ready(function () {
     function getGesture() {
         var playerNumber = $(this).attr("data-player");
         var playerGesture = $(this).val();
-
-        console.log(player1);
-        console.log(player2);
 
         if (playerNumber === "1") {
             updateGesture(player1, playerNumber, playerGesture);
@@ -140,53 +149,51 @@ $(document).ready(function () {
      */
 
     function updateDisplay() {
-        var span1 = $("<span>");
-        var span2 = $("<span>");
-        var span3 = $("<span>");
-        var img1 = $("<img>");
-        var img2 = $("<img>");
+        var i;
 
-        span1.text(player1.wins);
-        span2.text(player2.wins);
-        span3.text(ties);
-
-        $("#player-1-wins").html(span1);
-        $("#player-2-wins").html(span2);
-        $("#ties").html(span3);
+        createSpan("#player-1-wins", player1.wins);
+        createSpan("#player-2-wins", player2.wins);
+        createSpan("#ties", ties);
 
         if (player1.gesture === "paper") {
-            img1.attr("src", "assets/images/paper_formatted_1.png")
-                .attr("alt", "Paper");
+            updateImage(1, player1.gesture, gestureImages.player1.paper);
         }
         else if (player1.gesture === "scissors") {
-            img1.attr("src", "assets/images/scissors_formatted_1.png")
-                .attr("alt", "Scissors");
+            updateImage(1, player1.gesture, gestureImages.player1.scissors);
         }
         else {
-            img1.attr("src", "assets/images/rock_formatted_1.png")
-                .attr("alt", "Rock");
+            updateImage(1, player1.gesture, gestureImages.player1.rock);
         }
 
         if (player2.gesture === "paper") {
-            img2.attr("src", "assets/images/paper_formatted_2.png")
-                .attr("alt", "Paper");
+            updateImage(2, player2.gesture, gestureImages.player2.paper);
         }
         else if (player2.gesture === "scissors") {
-            img2.attr("src", "assets/images/scissors_formatted_2.png")
-                .attr("alt", "Scissors");
+            updateImage(2, player2.gesture, gestureImages.player2.scissors);
         }
         else {
-            img2.attr("src", "assets/images/rock_formatted_2.png")
-                .attr("alt", "Rock");
+            updateImage(2, player2.gesture, gestureImages.player2.rock);
         }
+    }
 
-        $("#player-1-gesture-img").html(img1);
-        $("#player-2-gesture-img").html(img2);
+    
+    function createSpan(id, record) {
+        var span = $("<span>");
+
+        span.text(record);
+
+        $(id).html(span);
     }
 
 
-    function updateImage(player, gesture, imageUrl) {
+    function updateImage(playerNumber, gesture, imageUrl) {
+        var img = $("<img>");
+        console.log(img);
 
+        img.attr("src", imageUrl)
+            .attr("alt", gesture);
+
+        $("#player-" + playerNumber + "-gesture-img").html(img);
     }
 
 
