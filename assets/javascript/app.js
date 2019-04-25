@@ -22,6 +22,7 @@ $(document).ready(function () {
      * Variables
      */
 
+    var initialize = true;
     var total = 0;
     var player1 = {
         wins: 0,
@@ -37,6 +38,8 @@ $(document).ready(function () {
     /**
      * Application
      */
+
+
 
 
     /**
@@ -137,6 +140,17 @@ $(document).ready(function () {
     function updateDisplay(lossesArray) {
         var summaryP1 = "Player 1: " + player1.wins + "-" + lossesArray[0] + "-" + ties;
         var summaryP2 = "Player 2: " + player2.wins + "-" + lossesArray[1] + "-" + ties;
+        var span1 = $("<span>");
+        var span2 = $("<span>");
+        var span3 = $("<span>");
+
+        span1.text(player1.wins);
+        span2.text(player2.wins);
+        span3.text(ties);
+
+        $("#player-1-wins").html(span1);
+        $("#player-2-wins").html(span2);
+        $("#ties").html(span3);
 
         $("#summary").text(summaryP1)
             .append(summaryP2);
@@ -181,6 +195,12 @@ $(document).ready(function () {
         player1 = app.player1;
         player2 = app.player2;
         ties = app.ties;
+
+        if (initialize === true) {
+            updateDisplay(0);
+            
+            initialize = false;
+        }
     });
 });
 

@@ -13,10 +13,47 @@
     <!-- App CSS -->
     <link rel="stylesheet" href="assets/css/style.css">
 
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800|Playfair+Display:400,700,900"
+        rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+        integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+
+    <!-- Animate.css -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
+
     <title>Rock Paper Scissors</title>
 </head>
 
 <body>
+    <div class="outer text-center">
+        <div class="container">
+            <div id="scoreboard" class="row">
+                <div class="col-4">
+                    <p class="light">
+                        Wins
+                    </p>
+                    <p id="player-1-wins"></p>
+                </div>
+                <div class="col-4">
+                    <p class="light">
+                        Ties
+                    </p>
+                    <p id="ties"></p>
+                </div>
+                <div class="col-4">
+                    <p class="light">
+                        Wins
+                    </p>
+                    <p id="player-2-wins"></p>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
 
     <div class="container">
         <div class="row">
@@ -24,9 +61,12 @@
                 <h2>Player 1</h2>
                 <div id="player-1-gesture"></div>
                 <div id="player-1-buttons">
-                    <button id="player-1-rock" class="btn btn-primary gesture" value="rock" data-player="1">Rock</button>
-                    <button id="player-1-paper" class="btn btn-primary gesture" value="paper" data-player="1">Paper</button>
-                    <button id="player-1-scissors" class="btn btn-primary gesture" value="scissors" data-player="1">Scissors</button>
+                    <button id="player-1-rock" class="btn btn-primary gesture" value="rock"
+                        data-player="1">Rock</button>
+                    <button id="player-1-paper" class="btn btn-primary gesture" value="paper"
+                        data-player="1">Paper</button>
+                    <button id="player-1-scissors" class="btn btn-primary gesture" value="scissors"
+                        data-player="1">Scissors</button>
                 </div>
             </div>
             <div class="col-4">
@@ -37,9 +77,12 @@
                 <h2>Player 2</h2>
                 <div id="player-2-gesture"></div>
                 <div id="player-2-buttons">
-                    <button id="player-2-rock" class="btn btn-primary gesture" value="rock" data-player="2">Rock</button>
-                    <button id="player-2-paper" class="btn btn-primary gesture" value="paper" data-player="2">Paper</button>
-                    <button id="player-2-scissors" class="btn btn-primary gesture" value="scissors" data-player="2">Scissors</button>
+                    <button id="player-2-rock" class="btn btn-primary gesture" value="rock"
+                        data-player="2">Rock</button>
+                    <button id="player-2-paper" class="btn btn-primary gesture" value="paper"
+                        data-player="2">Paper</button>
+                    <button id="player-2-scissors" class="btn btn-primary gesture" value="scissors"
+                        data-player="2">Scissors</button>
                 </div>
             </div>
         </div>
