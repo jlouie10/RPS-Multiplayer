@@ -40,8 +40,6 @@ $(document).ready(function () {
      */
 
 
-
-
     /**
      * function getGesture()
      * Get player gesture when button is clicked
@@ -50,6 +48,9 @@ $(document).ready(function () {
     function getGesture() {
         var playerNumber = $(this).attr("data-player");
         var playerGesture = $(this).val();
+
+        console.log(player1);
+        console.log(player2);
 
         if (playerNumber === "1") {
             updateGesture(player1, playerNumber, playerGesture);
@@ -138,10 +139,12 @@ $(document).ready(function () {
      * Updates the display for each player
      */
 
-    function updateDisplay(lossesArray) {
+    function updateDisplay() {
         var span1 = $("<span>");
         var span2 = $("<span>");
         var span3 = $("<span>");
+        var img1 = $("<img>");
+        var img2 = $("<img>");
 
         span1.text(player1.wins);
         span2.text(player2.wins);
@@ -151,8 +154,39 @@ $(document).ready(function () {
         $("#player-2-wins").html(span2);
         $("#ties").html(span3);
 
-        $("#player-1-gesture").text(player1.gesture);
-        $("#player-2-gesture").text(player2.gesture);
+        if (player1.gesture === "paper") {
+            img1.attr("src", "assets/images/paper_formatted_1.png")
+                .attr("alt", "Paper");
+        }
+        else if (player1.gesture === "scissors") {
+            img1.attr("src", "assets/images/scissors_formatted_1.png")
+                .attr("alt", "Scissors");
+        }
+        else {
+            img1.attr("src", "assets/images/rock_formatted_1.png")
+                .attr("alt", "Rock");
+        }
+
+        if (player2.gesture === "paper") {
+            img2.attr("src", "assets/images/paper_formatted_2.png")
+                .attr("alt", "Paper");
+        }
+        else if (player2.gesture === "scissors") {
+            img2.attr("src", "assets/images/scissors_formatted_2.png")
+                .attr("alt", "Scissors");
+        }
+        else {
+            img2.attr("src", "assets/images/rock_formatted_2.png")
+                .attr("alt", "Rock");
+        }
+
+        $("#player-1-gesture-img").html(img1);
+        $("#player-2-gesture-img").html(img2);
+    }
+
+
+    function updateImage(player, gesture, imageUrl) {
+
     }
 
 
