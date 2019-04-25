@@ -32,57 +32,64 @@
         <div class="container">
             <div id="scoreboard" class="row">
                 <div class="col-4">
-                    <p class="light">
+                    <p class="label light">
                         Wins
                     </p>
                     <p id="player-1-wins"></p>
                 </div>
                 <div class="col-4">
-                    <p class="light">
+                    <p class="label light">
                         Ties
                     </p>
                     <p id="ties"></p>
                 </div>
                 <div class="col-4">
-                    <p class="light">
+                    <p class="label light">
                         Wins
                     </p>
                     <p id="player-2-wins"></p>
                 </div>
             </div>
         </div>
-
-
     </div>
 
-    <div class="container">
-        <div class="row">
-            <div class="col-4">
-                <h2>Player 1</h2>
-                <div id="player-1-gesture"></div>
-                <div id="player-1-buttons">
-                    <button id="player-1-rock" class="btn btn-primary gesture" value="rock"
-                        data-player="1">Rock</button>
-                    <button id="player-1-paper" class="btn btn-primary gesture" value="paper"
-                        data-player="1">Paper</button>
-                    <button id="player-1-scissors" class="btn btn-primary gesture" value="scissors"
-                        data-player="1">Scissors</button>
+    <div class="outer text-center">
+        <div class="container">
+            <div class="row">
+                <div class="col-4">
+                    <h2>Player 1</h2>
+                    <div id="player-1-gesture"></div>
+                    <div id="player-1-buttons">
+                        <button id="player-1-rock" class="btn btn-primary gesture" value="rock"
+                            data-player="1">Rock</button>
+                        <button id="player-1-paper" class="btn btn-primary gesture" value="paper"
+                            data-player="1">Paper</button>
+                        <button id="player-1-scissors" class="btn btn-primary gesture" value="scissors"
+                            data-player="1">Scissors</button>
+                    </div>
                 </div>
-            </div>
-            <div class="col-4">
-                <h2>Summary</h2>
-                <div id="summary"></div>
-            </div>
-            <div class="col-4">
-                <h2>Player 2</h2>
-                <div id="player-2-gesture"></div>
-                <div id="player-2-buttons">
-                    <button id="player-2-rock" class="btn btn-primary gesture" value="rock"
-                        data-player="2">Rock</button>
-                    <button id="player-2-paper" class="btn btn-primary gesture" value="paper"
-                        data-player="2">Paper</button>
-                    <button id="player-2-scissors" class="btn btn-primary gesture" value="scissors"
-                        data-player="2">Scissors</button>
+                <div class="col-4">
+                    <div class="widget">
+                        <p class="label light">Rounds</p>
+                        <p id="rounds"></p>
+                    </div>
+                    <div class="widget">
+                        <p class="label light">Chat</p>
+                        <div id="chat"></div>
+                    </div>
+                    <div id="summary"></div>
+                </div>
+                <div class="col-4">
+                    <h2>Player 2</h2>
+                    <div id="player-2-gesture"></div>
+                    <div id="player-2-buttons">
+                        <button id="player-2-rock" class="btn btn-primary gesture" value="rock"
+                            data-player="2">Rock</button>
+                        <button id="player-2-paper" class="btn btn-primary gesture" value="paper"
+                            data-player="2">Paper</button>
+                        <button id="player-2-scissors" class="btn btn-primary gesture" value="scissors"
+                            data-player="2">Scissors</button>
+                    </div>
                 </div>
             </div>
         </div>

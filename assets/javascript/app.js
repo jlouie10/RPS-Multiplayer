@@ -95,9 +95,8 @@ $(document).ready(function () {
             player2.wins++;
         }
 
-        losses = calculateLosses();
-
-        updateDisplay(losses);
+        updateDisplay();
+        calculateRecord();
 
         player1.gesture = "";
         player2.gesture = "";
@@ -124,22 +123,22 @@ $(document).ready(function () {
      * Calculate losses for each player
      */
 
-     function calculateLosses() {
-         var lossesP1 = total - ties - player1.wins;
-         var lossesP2 = total - ties - player2.wins;
+    function calculateRecord() {
+        var lossesP1 = total - ties - player1.wins;
+        var lossesP2 = total - ties - player2.wins;
 
-         return [lossesP1, lossesP2];
-     }
+        console.log(total + " total games");
+        console.log("Player 1 (" + player1.wins + "-" + lossesP1 + "-" + ties + ")");
+        console.log("Player 2 (" + player2.wins + "-" + lossesP2 + "-" + ties + ")");
+    }
 
 
-     /**
+    /**
      * function displayGestures()
      * Updates the display for each player
      */
 
     function updateDisplay(lossesArray) {
-        var summaryP1 = "Player 1: " + player1.wins + "-" + lossesArray[0] + "-" + ties;
-        var summaryP2 = "Player 2: " + player2.wins + "-" + lossesArray[1] + "-" + ties;
         var span1 = $("<span>");
         var span2 = $("<span>");
         var span3 = $("<span>");
@@ -152,9 +151,6 @@ $(document).ready(function () {
         $("#player-2-wins").html(span2);
         $("#ties").html(span3);
 
-        $("#summary").text(summaryP1)
-            .append(summaryP2);
-        
         $("#player-1-gesture").text(player1.gesture);
         $("#player-2-gesture").text(player2.gesture);
     }
@@ -178,6 +174,9 @@ $(document).ready(function () {
             },
             ties: 0
         });
+
+        updateDisplay();
+        calculateRecord();
     }
 
 
@@ -190,15 +189,17 @@ $(document).ready(function () {
 
     database.ref().on("value", function (data) {
         var app = data.val().app;
-        
+
         total = app.total;
         player1 = app.player1;
         player2 = app.player2;
         ties = app.ties;
 
+        // Update the display with data from Firebase when the page is loaded
         if (initialize === true) {
-            updateDisplay(0);
-            
+            updateDisplay();
+            calculateRecord();
+
             initialize = false;
         }
     });
