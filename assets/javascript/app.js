@@ -26,11 +26,13 @@ $(document).ready(function () {
     var total = 0;
     var player1 = {
         wins: 0,
-        gesture: ""
+        gesture: "",
+        history: []
     }
     var player2 = {
         wins: 0,
-        gesture: ""
+        gesture: "",
+        history: []
     }
     var ties = 0;
     var gestureImages = {
@@ -71,7 +73,7 @@ $(document).ready(function () {
         // Compare when both players have selected an action
         if ((player1.gesture !== "") &&
             (player2.gesture !== "")) {
-            throwGesture()
+            throwGesture();
         }
     }
 
@@ -105,6 +107,9 @@ $(document).ready(function () {
             player2.wins++;
         }
 
+        player1.history.push(player1.gesture);
+        player2.history.push(player2.gesture);
+        
         updateDisplay();
         calculateRecord();
 
@@ -149,8 +154,6 @@ $(document).ready(function () {
      */
 
     function updateDisplay() {
-        var i;
-
         createSpan("#player-1-wins", player1.wins);
         createSpan("#player-2-wins", player2.wins);
         createSpan("#ties", ties);
@@ -174,9 +177,40 @@ $(document).ready(function () {
         else {
             updateImage(2, player2.gesture, gestureImages.player2.rock);
         }
+
+        updateRounds();
     }
 
-    
+    /**
+     * function updateRounds()
+     */
+
+    function updateRounds() {
+        var round = total;
+        var i;
+        var j = 3;
+        var k = round - 1;
+        var div = $("<div>");
+
+        if (round < 3) {
+            j = round;
+        }
+
+        // If only 1 loop, should avoid
+        for (i = 0; i < j; i++) {
+            var p = $("<p>");
+
+            p.text(player1.history[k] + " " + round + " " + player2.history[k]);
+            div.append(p);
+
+            k--;
+            round--;
+        }
+
+        $("#rounds").html(div);
+    }
+
+
     function createSpan(id, record) {
         var span = $("<span>");
 
@@ -188,7 +222,6 @@ $(document).ready(function () {
 
     function updateImage(playerNumber, gesture, imageUrl) {
         var img = $("<img>");
-        console.log(img);
 
         img.attr("src", imageUrl)
             .attr("alt", gesture);
@@ -207,11 +240,13 @@ $(document).ready(function () {
             total: 0,
             player1: {
                 wins: 0,
-                gesture: ""
+                gesture: "",
+                history: []
             },
             player2: {
                 wins: 0,
-                gesture: ""
+                gesture: "",
+                history: []
             },
             ties: 0
         });
@@ -236,8 +271,19 @@ $(document).ready(function () {
         player2 = app.player2;
         ties = app.ties;
 
+        // If history does not exist, reset player#.history to avoid changing type
+        if ((player1.history == null) ||
+            (player2.history == null)) {
+
+            player1.history = [];
+            player2.history = [];
+        }
+
         // Update the display with data from Firebase when the page is loaded
         if (initialize === true) {
+            // player1.history = [];
+            // player2.history = [];
+
             updateDisplay();
             calculateRecord();
 
