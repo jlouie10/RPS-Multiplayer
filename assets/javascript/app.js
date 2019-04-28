@@ -53,6 +53,8 @@ $(document).ready(function () {
      * Application
      */
 
+    // createInstance(); 
+
 
     /**
      * function getGesture()
@@ -77,6 +79,12 @@ $(document).ready(function () {
         }
     }
 
+
+
+    /**
+     * function updateGesture()
+     * Updates gesture in Firebase
+     */
 
     function updateGesture(player, number, gesture) {
         player.gesture = gesture;
@@ -109,7 +117,7 @@ $(document).ready(function () {
 
         player1.history.push(player1.gesture);
         player2.history.push(player2.gesture);
-        
+
         updateDisplay();
         calculateRecord();
 
@@ -183,6 +191,7 @@ $(document).ready(function () {
 
     /**
      * function updateRounds()
+     * Updates the display with previous round's results - up to 3 previous rounds
      */
 
     function updateRounds() {
@@ -210,6 +219,10 @@ $(document).ready(function () {
         $("#rounds").html(div);
     }
 
+    /**
+     * function createSpan()
+     * Creates span element for wins and ties
+     */
 
     function createSpan(id, record) {
         var span = $("<span>");
@@ -219,7 +232,11 @@ $(document).ready(function () {
         $(id).html(span);
     }
 
-
+    /**
+     * function updateImage()
+     * Updates the gesture image for each player
+     */
+    
     function updateImage(playerNumber, gesture, imageUrl) {
         var img = $("<img>");
 
@@ -229,6 +246,30 @@ $(document).ready(function () {
         $("#player-" + playerNumber + "-gesture-img").html(img);
     }
 
+    /**
+     * function createInstance()
+     * Creates a new instance of the game - not ready to be used
+     */
+
+    function createInstance() {
+        // database.ref("app/instance/").push({
+        // });
+        var key = database.ref("app/instance/").push({
+            total: 0,
+            player1: {
+                wins: 0,
+                gesture: "",
+                history: []
+            },
+            player2: {
+                wins: 0,
+                gesture: "",
+                history: []
+            },
+            ties: 0
+        }).key;
+        // console.log(key);
+    }
 
     /**
      * fundction reset()
